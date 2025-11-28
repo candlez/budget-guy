@@ -1,6 +1,6 @@
 package com.candlez.budget_guy.service;
 
-import com.candlez.budget_guy.data.dto.SignupRequestDto;
+import com.candlez.budget_guy.data.dto.request.SignupRequestDto;
 import com.candlez.budget_guy.data.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

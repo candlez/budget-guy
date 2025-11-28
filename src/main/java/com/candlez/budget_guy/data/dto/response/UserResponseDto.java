@@ -1,4 +1,4 @@
-package com.candlez.budget_guy.data.dto;
+package com.candlez.budget_guy.data.dto.response;
 
 import com.candlez.budget_guy.data.entity.User;
 

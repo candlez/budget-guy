@@ -1,4 +1,4 @@
-package com.candlez.budget_guy.data.dto;
+package com.candlez.budget_guy.data.dto.request;
 
 public class SignupRequestDto {
 

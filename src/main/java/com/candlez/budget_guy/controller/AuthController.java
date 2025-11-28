@@ -1,7 +1,7 @@
 package com.candlez.budget_guy.controller;
 
-import com.candlez.budget_guy.data.dto.SignupRequestDto;
-import com.candlez.budget_guy.data.dto.UserResponseDto;
+import com.candlez.budget_guy.data.dto.request.SignupRequestDto;
+import com.candlez.budget_guy.data.dto.response.UserResponseDto;
 import com.candlez.budget_guy.data.entity.User;
 import com.candlez.budget_guy.service.AuthService;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
