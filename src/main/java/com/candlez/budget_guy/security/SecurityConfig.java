@@ -42,10 +42,12 @@ public class SecurityConfig {
 
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-
+        // all requests starting with "/api" will require a JWT except "/api/auth/login" and "/api/auth/signup"
+        // the "/api" part comes from the application.yaml under spring.mvc.servlet.path
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login", "/auth/signup").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers("/").authenticated()
+                .anyRequest().permitAll()
         );
 
         http.addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
