@@ -10,6 +10,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-  mvc:
-    servlet:
-      path: /api
