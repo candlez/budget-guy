@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/statement")
+@RequestMapping("/api/statement")
 public class StatementController {
 
     @Autowired
