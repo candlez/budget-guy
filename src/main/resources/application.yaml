@@ -2,7 +2,7 @@ spring:
   application:
     name: budget-guy
   datasource:
-    url: jdbc:mysql://localhost:1127/budget_guy_db
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/budget_guy_db
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
