@@ -6,9 +6,7 @@ target/
 !**/src/test/**/target/
 
 ### Angular Build ###
-src/main/resources/static/
-src/main/resources/static/3rdpartylicenses.txt
-src/main/resources/static/prerendered-routes.json
+src/main/resources/static/*
 
 ### STS ###
 .apt_generated
