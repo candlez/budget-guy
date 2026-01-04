@@ -5,6 +5,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Angular Build ###
+src/main/resources/static/*
+
 ### STS ###
 .apt_generated
 .classpath
