@@ -3,10 +3,14 @@ package com.candlez.budget_guy.controller;
 import com.candlez.budget_guy.exception.NotFoundException;
 import com.candlez.budget_guy.exception.UnauthorizedException;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,10 +35,25 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(value = NoResourceFoundException.class)
-    public ResponseEntity<?> handleNoResourceFoundException(HttpServletRequest req, NoResourceFoundException e) {
+    public Object handleNoResourceFoundException(HttpServletRequest req, HttpServletResponse res, NoResourceFoundException e) {
+
+        if (this.isHtmlRequest(req)) {
+            // this does not work
+            // res.setStatus(HttpStatus.NOT_FOUND.value());
+
+            // this does
+            req.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.NOT_FOUND);
+
+            return "forward:/error";
+        }
 
         String errMsg = Optional.ofNullable(e.getMessage()).orElse("The server could not find the resource you requested.");
         return ApiErrorResponse.sendOne(HttpStatus.NOT_FOUND, errMsg);
+    }
+
+    private boolean isHtmlRequest(HttpServletRequest req) {
+        String accept = req.getHeader(HttpHeaders.ACCEPT);
+        return accept != null && accept.contains(MediaType.TEXT_HTML_VALUE);
     }
 
     @ExceptionHandler(value = NotFoundException.class)
