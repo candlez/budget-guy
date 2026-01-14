@@ -23,7 +23,7 @@ COPY --from=frontend-build /frontend/dist /backend/src/main/resources/static
 RUN mvn clean package -DskipTests
 
 # Final
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
 COPY --from=backend-build /backend/target/*.war app.war
