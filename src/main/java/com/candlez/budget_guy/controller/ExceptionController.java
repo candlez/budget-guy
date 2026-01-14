@@ -2,15 +2,15 @@ package com.candlez.budget_guy.controller;
 
 import com.candlez.budget_guy.exception.NotFoundException;
 import com.candlez.budget_guy.exception.UnauthorizedException;
+import com.candlez.budget_guy.util.RequestUtils;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +22,13 @@ import java.util.Optional;
 public class ExceptionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionController.class);
+
+    private final RequestUtils requestUtils;
+
+    @Autowired
+    public ExceptionController(RequestUtils requestUtils) {
+        this.requestUtils = requestUtils;
+    }
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<?> handleUncaughtException(HttpServletRequest req, Exception e) {
@@ -37,7 +44,7 @@ public class ExceptionController {
     @ExceptionHandler(value = NoResourceFoundException.class)
     public Object handleNoResourceFoundException(HttpServletRequest req, HttpServletResponse res, NoResourceFoundException e) {
 
-        if (this.isHtmlRequest(req)) {
+        if (requestUtils.isHtmlRequest(req)) {
             // this does not work
             // res.setStatus(HttpStatus.NOT_FOUND.value());
 
@@ -49,11 +56,6 @@ public class ExceptionController {
 
         String errMsg = Optional.ofNullable(e.getMessage()).orElse("The server could not find the resource you requested.");
         return ApiErrorResponse.sendOne(HttpStatus.NOT_FOUND, errMsg);
-    }
-
-    private boolean isHtmlRequest(HttpServletRequest req) {
-        String accept = req.getHeader(HttpHeaders.ACCEPT);
-        return accept != null && accept.contains(MediaType.TEXT_HTML_VALUE);
     }
 
     @ExceptionHandler(value = NotFoundException.class)
