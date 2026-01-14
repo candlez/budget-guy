@@ -44,7 +44,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::182872618525:role/budget-guy-github-cicd-oidc-role
-          role-session-name: budget-guy-${{ github.workflow }}-${{ github.run_id }}
+          role-session-name: budget-guy-pipeline-${{ github.run_id }}
           aws-region: us-east-1
 
       - name: Get short SHA
