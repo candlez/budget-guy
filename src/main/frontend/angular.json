@@ -69,11 +69,11 @@
             "production": {
               "buildTarget": "budget-guy:build:production"
             },
-            "development": {
-              "buildTarget": "budget-guy:build:development"
+            "local": {
+              "buildTarget": "budget-guy:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "test": {
           "builder": "@angular/build:unit-test"
