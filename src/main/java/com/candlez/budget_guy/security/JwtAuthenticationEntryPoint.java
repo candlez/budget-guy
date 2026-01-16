@@ -1,12 +1,12 @@
 package com.candlez.budget_guy.security;
 
 import com.candlez.budget_guy.exception.UnauthorizedException;
+import com.candlez.budget_guy.util.RequestUtils;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
 import com.candlez.budget_guy.util.rest.SingleError;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -25,15 +25,22 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final SecurityErrorResponseWriter writer;
 
+    private final RequestUtils requestUtils;
+
     @Autowired
-    public JwtAuthenticationEntryPoint(SecurityErrorResponseWriter writer) {
+    public JwtAuthenticationEntryPoint(SecurityErrorResponseWriter writer, RequestUtils requestUtils) {
         this.writer = writer;
+        this.requestUtils = requestUtils;
     }
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+    public void commence(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException authException
+    ) throws IOException {
 
-        if (this.isHtmlRequest(request)) {
+        if (requestUtils.isHtmlRequest(request)) {
             response.setContentType(MediaType.TEXT_HTML_VALUE);
             response.sendRedirect("/login");
             return;
@@ -48,10 +55,5 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             errorResponse = new ApiErrorResponse<>(new SingleError(HttpStatus.UNAUTHORIZED, "Unauthorized"));
         }
         writer.write(response, HttpStatus.UNAUTHORIZED, errorResponse);
-    }
-
-    private boolean isHtmlRequest(HttpServletRequest req) {
-        String accept = req.getHeader(HttpHeaders.ACCEPT);
-        return accept != null && accept.contains(MediaType.TEXT_HTML_VALUE);
     }
 }

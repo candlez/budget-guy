@@ -1,8 +1,11 @@
 package com.candlez.budget_guy.security;
 
 import com.candlez.budget_guy.exception.ForbiddenException;
+import com.candlez.budget_guy.util.RequestUtils;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
 import com.candlez.budget_guy.util.rest.SingleError;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +26,27 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
     private final SecurityErrorResponseWriter writer;
 
+    private final RequestUtils requestUtils;
+
     @Autowired
-    public JwtAccessDeniedHandler(SecurityErrorResponseWriter writer) {
+    public JwtAccessDeniedHandler(SecurityErrorResponseWriter writer, RequestUtils requestUtils) {
         this.writer = writer;
+        this.requestUtils = requestUtils;
     }
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+    public void handle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AccessDeniedException accessDeniedException
+    ) throws IOException, ServletException {
+
+        if (requestUtils.isHtmlRequest(request)) {
+            System.out.println("sanity check");
+            request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.FORBIDDEN);
+            request.getRequestDispatcher("/error").forward(request, response);
+            return;
+        }
 
         ApiErrorResponse<SingleError> errorResponse;
         if (accessDeniedException instanceof ForbiddenException) {
