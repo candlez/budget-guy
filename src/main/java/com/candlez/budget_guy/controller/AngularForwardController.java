@@ -3,7 +3,10 @@ package com.candlez.budget_guy.controller;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class AngularForwardController implements ErrorController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AngularForwardController.class);
+
     @GetMapping("/{path:^(?!api)(?!.*\\.).*$}")
     public String forward() {
         return "forward:/index.html";
@@ -27,8 +32,9 @@ public class AngularForwardController implements ErrorController {
             produces = MediaType.TEXT_HTML_VALUE
     )
     public String forwardError(HttpServletRequest request, HttpServletResponse response) {
-        if (request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE) instanceof Integer status) {
-            response.setStatus(status);
+
+        if (request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE) instanceof HttpStatus status) {
+            response.setStatus(status.value());
         }
 
         return "forward:/index.html";

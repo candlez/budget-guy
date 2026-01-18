@@ -42,7 +42,6 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     ) throws IOException, ServletException {
 
         if (requestUtils.isHtmlRequest(request)) {
-            System.out.println("sanity check");
             request.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.FORBIDDEN);
             request.getRequestDispatcher("/error").forward(request, response);
             return;
