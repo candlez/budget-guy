@@ -1,1 +1,6 @@
-<p>login works!</p>
+<h5>Login Page</h5>
+<p class="login-text">Username</p>
+<input type="text"  class="login-input" #usernameText>
+<p class="login-text">Password</p>
+<input type="password"  class="login-input" #passwordText>
+<button (click)="handleLogin(usernameText.value, passwordText.value)">Log in</button>
