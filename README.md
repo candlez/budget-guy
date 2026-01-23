@@ -17,4 +17,4 @@ Alternatively, you can do the following:
 2. ```DB_PASSWORD```
 3. ```DB_HOST```
 4. ```DB_PORT```
-5. ```SPRING_PROFILES_ACTIVE```
+5. ```SPRING_PROFILES_ACTIVE``` ('local' or 'prod')
