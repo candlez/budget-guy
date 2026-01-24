@@ -16,12 +16,15 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public Transaction createTransaction(BigDecimal amount, String description, UUID subcategoryID, UUID statementID, UUID userID, LocalDate transactionDate) {
+    public Transaction createTransaction(
+            BigDecimal amount,
+            String description,
+            UUID subcategoryID,
+            UUID statementID,
+            UUID userID,
+            LocalDate transactionDate
+    ) {
         Transaction transaction = new Transaction();
-
-        if (userID == null) {
-            // TODO pull user from AsyncLocalStorage (or whatever the Java equivalent is)
-        }
 
         transaction.setAmount(amount);
         transaction.setDescription(description);

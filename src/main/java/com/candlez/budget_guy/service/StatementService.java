@@ -30,10 +30,10 @@ public class StatementService {
     public Statement createStatementFromCSV(
             MultipartFile file,
             LocalDate startDate,
-            LocalDate endDate
+            LocalDate endDate,
+            UUID userID
     ) throws CsvValidationException, IOException {
 
-        UUID userID = UUID.fromString("59293386-c9a8-11f0-b987-0242ac110003");
         Statement statement = this.createStatement(startDate, endDate, userID);
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
             String[] row;
