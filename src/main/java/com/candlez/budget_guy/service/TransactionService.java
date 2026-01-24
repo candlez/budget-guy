@@ -26,7 +26,7 @@ public class TransactionService {
         transaction.setAmount(amount);
         transaction.setDescription(description);
 //        transaction.setSubcategoryID(subcategoryID);
-//        transaction.setStatementID(statementID);
+        transaction.setStatementID(statementID);
         transaction.setUserID(userID);
         transaction.setTransactionDate(transactionDate);
 

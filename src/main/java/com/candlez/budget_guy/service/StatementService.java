@@ -27,7 +27,11 @@ public class StatementService {
     @Autowired
     private StatementRepository statementRepository;
 
-    public Statement createStatementFromCSV(MultipartFile file, LocalDate startDate, LocalDate endDate) throws CsvValidationException, IOException {
+    public Statement createStatementFromCSV(
+            MultipartFile file,
+            LocalDate startDate,
+            LocalDate endDate
+    ) throws CsvValidationException, IOException {
 
         UUID userID = UUID.fromString("59293386-c9a8-11f0-b987-0242ac110003");
         Statement statement = this.createStatement(startDate, endDate, userID);
@@ -43,7 +47,14 @@ public class StatementService {
                 // 4 -> description
                 String description = row[4].trim();
 
-                transactionService.createTransaction(amount, description, null, null, userID, transactionDate);
+                transactionService.createTransaction(
+                        amount,
+                        description,
+                        null,
+                        statement.getStatementID(),
+                        userID,
+                        transactionDate
+                );
             }
         }
         return statement;
