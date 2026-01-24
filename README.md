@@ -18,3 +18,4 @@ Alternatively, you can do the following:
 3. ```DB_HOST```
 4. ```DB_PORT```
 5. ```SPRING_PROFILES_ACTIVE``` ('local' or 'prod')
+6. ```JWT_SECRET``` (must be at least 32 bytes)

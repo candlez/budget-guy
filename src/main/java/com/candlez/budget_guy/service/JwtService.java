@@ -1,7 +1,9 @@
 package com.candlez.budget_guy.service;
 
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -12,9 +14,12 @@ import java.util.UUID;
 @Service
 public class JwtService {
 
-    private static final String JWT_SECRET = "placeholderplaceholderplaceholder";
+    private final SecretKey key;
 
-    private final SecretKey key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes());
+    @Autowired
+    public JwtService(SecretKey key) {
+        this.key = key;
+    }
 
     public String generateToken(String userId) {
         Instant now = Instant.now();
