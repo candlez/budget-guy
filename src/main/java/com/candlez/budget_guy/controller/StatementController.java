@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/statement")
@@ -33,7 +35,8 @@ public class StatementController {
 
         Statement createdStatement;
         try { // need logging
-            createdStatement = this.statementService.createStatementFromCSV(file, startDate, endDate);
+            UUID userID = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            createdStatement = this.statementService.createStatementFromCSV(file, startDate, endDate, userID);
         } catch (CsvValidationException e) {
             return ApiErrorResponse.sendOne(HttpStatus.BAD_REQUEST, "The CSV you gave me could not be processed");
         } catch (Exception e) {
