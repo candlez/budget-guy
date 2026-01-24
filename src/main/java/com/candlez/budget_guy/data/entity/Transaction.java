@@ -27,8 +27,8 @@ public class Transaction {
 //    @Column(name = "subcategory_id")
 //    private UUID subcategoryID;
 
-//    @Column(name = "statement_id")
-//    private UUID statementID;
+    @Column(name = "statement_id")
+    private UUID statementID;
 
     @Column(name = "user_id")
     private UUID userID;
@@ -71,14 +71,14 @@ public class Transaction {
 //    public void setSubcategoryID(UUID subcategoryID) {
 //        this.subcategoryID = subcategoryID;
 //    }
-//
-//    public UUID getStatementID() {
-//        return this.statementID;
-//    }
-//
-//    public void setStatementID(UUID statementID) {
-//        this.statementID = statementID;
-//    }
+
+    public UUID getStatementID() {
+        return this.statementID;
+    }
+
+    public void setStatementID(UUID statementID) {
+        this.statementID = statementID;
+    }
 
     public UUID getUserID() {
         return this.userID;
