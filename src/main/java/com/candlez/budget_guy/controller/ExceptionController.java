@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -56,6 +57,28 @@ public class ExceptionController {
 
         String errMsg = Optional.ofNullable(e.getMessage()).orElse("The server could not find the resource you requested.");
         return ApiErrorResponse.sendOne(HttpStatus.NOT_FOUND, errMsg);
+    }
+
+    @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)
+    public Object handleMediaTypeNotAcceptableException(
+            HttpServletRequest req,
+            HttpServletResponse res,
+            HttpMediaTypeNotAcceptableException e
+    ) {
+
+        if (requestUtils.isHtmlRequest(req)) {
+            // this does not work
+            // res.setStatus(HttpStatus.NOT_FOUND.value());
+
+            // this does
+            req.setAttribute(RequestDispatcher.ERROR_STATUS_CODE, HttpStatus.NOT_ACCEPTABLE);
+
+            return "forward:/error";
+        }
+
+        String errMsg = Optional.ofNullable(e.getMessage())
+                .orElse("The server does not support the media type you requested.");
+        return ApiErrorResponse.sendOne(HttpStatus.NOT_ACCEPTABLE, errMsg);
     }
 
     @ExceptionHandler(value = NotFoundException.class)
