@@ -23,8 +23,12 @@ import java.util.UUID;
 @RequestMapping("/api/statement")
 public class StatementController {
 
+    private final StatementService statementService;
+
     @Autowired
-    private StatementService statementService;
+    public StatementController(StatementService statementService) {
+        this.statementService = statementService;
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadStatement(
