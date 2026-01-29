@@ -21,11 +21,15 @@ public class StatementService {
 
     private static final DateTimeFormatter CSV_DATE_FORMAT = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    private final StatementRepository statementRepository;
 
     @Autowired
-    private StatementRepository statementRepository;
+    public StatementService(TransactionService transactionService, StatementRepository statementRepository) {
+        this.transactionService = transactionService;
+        this.statementRepository = statementRepository;
+    }
 
     public Statement createStatementFromCSV(
             MultipartFile file,
