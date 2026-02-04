@@ -43,6 +43,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   deploy-dev:
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: development
@@ -51,7 +52,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::182872618525:role/budget-guy-github-cicd-oidc-role
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           role-session-name: budget-guy-pipeline-${{ github.run_id }}
           aws-region: us-east-1
 
@@ -62,7 +63,7 @@ jobs:
         id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition-family: budget-guy-dev
+          task-definition-family: ${{ vars.TASK_DEFINITION_FAMILY }}
           container-name: budget-guy-spring
           image: thomasmcnamara7/budget-guy:${{ env.SHORT_SHA }}
 
@@ -70,8 +71,8 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
-          service: budget-guy-dev-service-0xfrdc5z
-          cluster: budget-guy-dev
+          service: ${{ vars.ECS_SERVICE }}
+          cluster: ${{ vars.ECS_CLUSTER }}
 
   deploy-prod:
     needs: deploy-dev
@@ -83,7 +84,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::182872618525:role/budget-guy-github-cicd-oidc-role
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }}
           role-session-name: budget-guy-pipeline-${{ github.run_id }}
           aws-region: us-east-1
 
@@ -94,7 +95,7 @@ jobs:
         id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition-family: budget-guy
+          task-definition-family: ${{ vars.TASK_DEFINITION_FAMILY }}
           container-name: budget-guy-spring
           image: thomasmcnamara7/budget-guy:${{ env.SHORT_SHA }}
 
@@ -102,5 +103,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
-          service: budget-guy-service-poid3dxs
-          cluster: budget-guy
+          service: ${{ vars.ECS_SERVICE }}
+          cluster: ${{ vars.ECS_CLUSTER }}
