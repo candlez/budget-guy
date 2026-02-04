@@ -61,7 +61,7 @@ jobs:
         id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition-family: budget-guy
+          task-definition-family: budget-guy-dev
           container-name: budget-guy-spring
           image: thomasmcnamara7/budget-guy:${{ env.SHORT_SHA }}
 
@@ -70,4 +70,4 @@ jobs:
         with:
           task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
           service: budget-guy-dev-service-0xfrdc5z
-          cluster: budget-guy
+          cluster: budget-guy-dev
