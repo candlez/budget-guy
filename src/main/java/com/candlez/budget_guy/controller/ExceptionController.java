@@ -22,7 +22,7 @@ public class ExceptionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionController.class);
 
-    @SupportsHTML(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @SupportsHTML(value = HttpStatus.INTERNAL_SERVER_ERROR, destination = "500.html")
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<?> handleUncaughtException(HttpServletRequest req, Exception e) {
 
@@ -42,7 +42,7 @@ public class ExceptionController {
         return ApiErrorResponse.sendOne(HttpStatus.NOT_FOUND, errMsg);
     }
 
-    @SupportsHTML(value = HttpStatus.NOT_ACCEPTABLE)
+    @SupportsHTML(value = HttpStatus.NOT_ACCEPTABLE, destination = "406.html")
     @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)
     public Object handleMediaTypeNotAcceptableException(
             HttpServletRequest req,
