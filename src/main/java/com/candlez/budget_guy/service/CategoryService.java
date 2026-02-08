@@ -2,6 +2,7 @@ package com.candlez.budget_guy.service;
 
 import com.candlez.budget_guy.data.entity.Category;
 import com.candlez.budget_guy.data.repository.CategoryRepository;
+import com.candlez.budget_guy.util.provider.UUIDProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,16 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    private final UUIDProvider uuidProvider;
+
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, UUIDProvider uuidProvider) {
         this.categoryRepository = categoryRepository;
+        this.uuidProvider = uuidProvider;
     }
 
-    public List<Category> getCategories(UUID userID) {
-        return this.categoryRepository.findAllByUserId(userID);
+    public List<Category> getCategories(UUID userId) {
+        return this.categoryRepository.findAllByUserId(userId);
     }
 
     public Category createCategory(String name, String description, UUID userId) {
@@ -31,7 +35,7 @@ public class CategoryService {
         category.setUserId(userId);
 
         category.setCreatedAt(Instant.now());
-        category.setCategoryId(UUID.randomUUID());
+        category.setCategoryId(uuidProvider.generateUUID());
 
         return this.categoryRepository.save(category);
     }

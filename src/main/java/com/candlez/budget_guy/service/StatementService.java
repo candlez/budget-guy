@@ -2,6 +2,7 @@ package com.candlez.budget_guy.service;
 
 import com.candlez.budget_guy.data.entity.Statement;
 import com.candlez.budget_guy.data.repository.StatementRepository;
+import com.candlez.budget_guy.util.provider.UUIDProvider;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,17 @@ public class StatementService {
 
     private final StatementRepository statementRepository;
 
+    private final UUIDProvider uuidProvider;
+
     @Autowired
-    public StatementService(TransactionService transactionService, StatementRepository statementRepository) {
+    public StatementService(
+            TransactionService transactionService,
+            StatementRepository statementRepository,
+            UUIDProvider uuidProvider
+    ) {
         this.transactionService = transactionService;
         this.statementRepository = statementRepository;
+        this.uuidProvider = uuidProvider;
     }
 
     public Statement createStatementFromCSV(
@@ -75,7 +83,7 @@ public class StatementService {
         statement.setIncome(BigDecimal.ZERO);
         statement.setExpenses(BigDecimal.ZERO);
         statement.setCreatedAt(Instant.now());
-        statement.setStatementId(UUID.randomUUID());
+        statement.setStatementId(uuidProvider.generateUUID());
 
         return this.statementRepository.save(statement);
     }
