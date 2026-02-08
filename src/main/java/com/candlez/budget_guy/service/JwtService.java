@@ -1,5 +1,6 @@
 package com.candlez.budget_guy.service;
 
+import com.candlez.budget_guy.util.provider.DateProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -16,13 +17,16 @@ public class JwtService {
 
     private final SecretKey key;
 
+    private final DateProvider dateProvider;
+
     @Autowired
-    public JwtService(SecretKey key) {
+    public JwtService(SecretKey key, DateProvider dateProvider) {
         this.key = key;
+        this.dateProvider = dateProvider;
     }
 
     public String generateToken(String userId) {
-        Instant now = Instant.now();
+        Instant now = dateProvider.getCurrentTimestamp();
 
         return Jwts.builder()
                 .subject(userId)

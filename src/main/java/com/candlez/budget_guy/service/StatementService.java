@@ -2,6 +2,7 @@ package com.candlez.budget_guy.service;
 
 import com.candlez.budget_guy.data.entity.Statement;
 import com.candlez.budget_guy.data.repository.StatementRepository;
+import com.candlez.budget_guy.util.provider.DateProvider;
 import com.candlez.budget_guy.util.provider.UUIDProvider;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
@@ -12,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -27,16 +27,19 @@ public class StatementService {
     private final StatementRepository statementRepository;
 
     private final UUIDProvider uuidProvider;
+    private final DateProvider dateProvider;
 
     @Autowired
     public StatementService(
             TransactionService transactionService,
             StatementRepository statementRepository,
-            UUIDProvider uuidProvider
+            UUIDProvider uuidProvider,
+            DateProvider dateProvider
     ) {
         this.transactionService = transactionService;
         this.statementRepository = statementRepository;
         this.uuidProvider = uuidProvider;
+        this.dateProvider = dateProvider;
     }
 
     public Statement createStatementFromCSV(
@@ -82,7 +85,7 @@ public class StatementService {
 
         statement.setIncome(BigDecimal.ZERO);
         statement.setExpenses(BigDecimal.ZERO);
-        statement.setCreatedAt(Instant.now());
+        statement.setCreatedAt(dateProvider.getCurrentTimestamp());
         statement.setStatementId(uuidProvider.generateUUID());
 
         return this.statementRepository.save(statement);

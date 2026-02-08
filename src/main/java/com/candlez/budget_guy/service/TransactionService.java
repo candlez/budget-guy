@@ -2,12 +2,12 @@ package com.candlez.budget_guy.service;
 
 import com.candlez.budget_guy.data.entity.Transaction;
 import com.candlez.budget_guy.data.repository.TransactionRepository;
+import com.candlez.budget_guy.util.provider.DateProvider;
 import com.candlez.budget_guy.util.provider.UUIDProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -17,11 +17,13 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
 
     private final UUIDProvider uuidProvider;
+    private final DateProvider dateProvider;
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository, UUIDProvider uuidProvider) {
+    public TransactionService(TransactionRepository transactionRepository, UUIDProvider uuidProvider, DateProvider dateProvider) {
         this.transactionRepository = transactionRepository;
         this.uuidProvider = uuidProvider;
+        this.dateProvider = dateProvider;
     }
 
     public Transaction createTransaction(
@@ -41,7 +43,7 @@ public class TransactionService {
         transaction.setUserId(userId);
         transaction.setTransactionDate(transactionDate);
 
-        transaction.setCreatedAt(Instant.now()); // right now!
+        transaction.setCreatedAt(dateProvider.getCurrentTimestamp());
         transaction.setTransactionId(uuidProvider.generateUUID());
 
         return this.transactionRepository.save(transaction);
