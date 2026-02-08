@@ -4,6 +4,7 @@ import com.candlez.budget_guy.data.dto.request.LoginRequestDto;
 import com.candlez.budget_guy.data.dto.request.SignupRequestDto;
 import com.candlez.budget_guy.data.dto.response.UserResponseDto;
 import com.candlez.budget_guy.data.entity.User;
+import com.candlez.budget_guy.data.mapper.UserMapper;
 import com.candlez.budget_guy.exception.NotFoundException;
 import com.candlez.budget_guy.exception.UnauthorizedException;
 import com.candlez.budget_guy.service.AuthService;
@@ -38,10 +39,13 @@ public class AuthController {
 
     private final UserService userService;
 
+    private final UserMapper userMapper;
+
     @Autowired
-    public AuthController(AuthService authService, UserService userService) {
+    public AuthController(AuthService authService, UserService userService, UserMapper userMapper) {
         this.authService = authService;
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/signup")
@@ -50,7 +54,7 @@ public class AuthController {
         UserResponseDto userResponseDto;
         try {
             User user = authService.signup(signupRequestDto);
-            userResponseDto = UserResponseDto.fromUser(user);
+            userResponseDto = this.userMapper.toResponseDto(user);
         } catch (Exception e) {
             return ApiErrorResponse.sendOne(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong unexpectedly");
         }
@@ -70,7 +74,7 @@ public class AuthController {
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-            userResponseDto = UserResponseDto.fromUser(user);
+            userResponseDto = this.userMapper.toResponseDto(user);
         } catch (UnauthorizedException e) {
             throw e;
         } catch (Exception e) {
@@ -90,6 +94,7 @@ public class AuthController {
             LOGGER.error("User with valid token not found in the database [User ID: {}]", userId.toString());
             throw new NotFoundException("User not found");
         }
-        return ApiResponse.sendOne(userId, UserResponseDto.fromUser(optionalUser.get()));
+        UserResponseDto userResponseDto = this.userMapper.toResponseDto(optionalUser.get());
+        return ApiResponse.sendOne(userId, userResponseDto);
     }
 }

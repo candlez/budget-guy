@@ -13,16 +13,6 @@ public class CategoryResponseDto {
     private String description;
     private Instant createdAt;
 
-    public static CategoryResponseDto fromCategory(Category category) {
-        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
-        categoryResponseDto.setCategoryID(category.getCategoryID());
-        categoryResponseDto.setUserID(category.getUserID());
-        categoryResponseDto.setName(category.getName());
-        categoryResponseDto.setDescription(category.getDescription());
-        categoryResponseDto.setCreatedAt(category.getCreatedAt());
-        return categoryResponseDto;
-    }
-
     // getters and setters
     public UUID getCategoryID() {
         return this.categoryID;

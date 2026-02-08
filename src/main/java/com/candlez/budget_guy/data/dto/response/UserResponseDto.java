@@ -1,7 +1,5 @@
 package com.candlez.budget_guy.data.dto.response;
 
-import com.candlez.budget_guy.data.entity.User;
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -12,16 +10,6 @@ public class UserResponseDto {
     private String firstName;
     private String lastName;
     private Instant createdAt;
-
-    public static UserResponseDto fromUser(User user) {
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setUserId(user.getUserId());
-        userResponseDto.setEmail(user.getEmail());
-        userResponseDto.setFirstName(user.getFirstName());
-        userResponseDto.setLastName(user.getLastName());
-        userResponseDto.setCreatedAt(user.getCreatedAt());
-        return userResponseDto;
-    }
 
     // getters and setters
     public UUID getUserId() {

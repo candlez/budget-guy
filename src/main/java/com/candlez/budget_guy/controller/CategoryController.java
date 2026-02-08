@@ -3,6 +3,7 @@ package com.candlez.budget_guy.controller;
 import com.candlez.budget_guy.data.dto.request.CreateCategoryRequestDto;
 import com.candlez.budget_guy.data.dto.response.CategoryResponseDto;
 import com.candlez.budget_guy.data.entity.Category;
+import com.candlez.budget_guy.data.mapper.CategoryMapper;
 import com.candlez.budget_guy.service.CategoryService;
 import com.candlez.budget_guy.util.rest.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    private final CategoryMapper categoryMapper;
+
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
+        this.categoryMapper = categoryMapper;
     }
 
     @GetMapping("")
@@ -34,7 +38,7 @@ public class CategoryController {
 
         List<Category> categories = categoryService.getCategories(userID);
 
-        List<CategoryResponseDto> categoryResponseDtos = categories.stream().map(CategoryResponseDto::fromCategory).toList();
+        List<CategoryResponseDto> categoryResponseDtos = categories.stream().map(categoryMapper::toResponseDto).toList();
 
         return ApiResponse.sendList(categoryResponseDtos);
     }
@@ -45,7 +49,7 @@ public class CategoryController {
 
         Category category = categoryService.createCategory(categoryDto.getName(), categoryDto.getDescription(), userID);
 
-        CategoryResponseDto categoryResponseDto = CategoryResponseDto.fromCategory(category);
+        CategoryResponseDto categoryResponseDto = this.categoryMapper.toResponseDto(category);
 
         return ApiResponse.sendCreated(category.getCategoryID(), categoryResponseDto);
     }
