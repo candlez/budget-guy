@@ -91,7 +91,7 @@ public class AuthController {
         Optional<User> optionalUser = this.userService.getUserById(userId);
         if (optionalUser.isEmpty()) {
             // this should hopefully never happen
-            LOGGER.error("User with valid token not found in the database [User ID: {}]", userId.toString());
+            LOGGER.error("User with valid token not found in the database [User Id: {}]", userId.toString());
             throw new NotFoundException("User not found");
         }
         UserResponseDto userResponseDto = this.userMapper.toResponseDto(optionalUser.get());

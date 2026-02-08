@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface CategoryRepository extends CrudRepository<Category, UUID> {
 
-    List<Category> findAllByUserID(UUID userID);
+    List<Category> findAllByUserId(UUID userID);
 }

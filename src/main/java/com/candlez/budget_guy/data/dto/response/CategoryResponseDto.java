@@ -1,33 +1,31 @@
 package com.candlez.budget_guy.data.dto.response;
 
-import com.candlez.budget_guy.data.entity.Category;
-
 import java.time.Instant;
 import java.util.UUID;
 
 public class CategoryResponseDto {
 
-    private UUID categoryID;
-    private UUID userID;
+    private UUID categoryId;
+    private UUID userId;
     private String name;
     private String description;
     private Instant createdAt;
 
     // getters and setters
-    public UUID getCategoryID() {
-        return this.categoryID;
+    public UUID getCategoryId() {
+        return this.categoryId;
     }
 
-    public void setCategoryID(UUID statementID) {
-        this.categoryID = statementID;
+    public void setCategoryId(UUID statementID) {
+        this.categoryId = statementID;
     }
 
-    public UUID getUserID() {
-        return this.userID;
+    public UUID getUserId() {
+        return this.userId;
     }
 
-    public void setUserID(UUID userID) {
-        this.userID = userID;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public String getName() {

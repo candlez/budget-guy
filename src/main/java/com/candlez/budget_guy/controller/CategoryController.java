@@ -34,9 +34,9 @@ public class CategoryController {
 
     @GetMapping("")
     public ResponseEntity<?> getCategories() {
-        UUID userID = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<Category> categories = categoryService.getCategories(userID);
+        List<Category> categories = categoryService.getCategories(userId);
 
         List<CategoryResponseDto> categoryResponseDtos = categories.stream().map(categoryMapper::toResponseDto).toList();
 
@@ -45,12 +45,12 @@ public class CategoryController {
 
     @PostMapping("")
     public ResponseEntity<?> createCategory(@RequestBody CreateCategoryRequestDto categoryDto) {
-        UUID userID = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Category category = categoryService.createCategory(categoryDto.getName(), categoryDto.getDescription(), userID);
+        Category category = categoryService.createCategory(categoryDto.getName(), categoryDto.getDescription(), userId);
 
         CategoryResponseDto categoryResponseDto = this.categoryMapper.toResponseDto(category);
 
-        return ApiResponse.sendCreated(category.getCategoryID(), categoryResponseDto);
+        return ApiResponse.sendCreated(category.getCategoryId(), categoryResponseDto);
     }
 }

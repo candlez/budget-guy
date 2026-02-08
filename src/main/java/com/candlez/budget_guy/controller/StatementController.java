@@ -39,13 +39,13 @@ public class StatementController {
 
         Statement createdStatement;
         try { // need logging
-            UUID userID = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            createdStatement = this.statementService.createStatementFromCSV(file, startDate, endDate, userID);
+            UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            createdStatement = this.statementService.createStatementFromCSV(file, startDate, endDate, userId);
         } catch (CsvValidationException e) {
             return ApiErrorResponse.sendOne(HttpStatus.BAD_REQUEST, "The CSV you gave me could not be processed");
         } catch (Exception e) {
             return ApiErrorResponse.sendOne(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong unexpectedly");
         }
-        return ApiResponse.sendCreated(createdStatement.getStatementID(), createdStatement);
+        return ApiResponse.sendCreated(createdStatement.getStatementId(), createdStatement);
     }
 }

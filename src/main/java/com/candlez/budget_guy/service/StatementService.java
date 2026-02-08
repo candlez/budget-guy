@@ -35,10 +35,10 @@ public class StatementService {
             MultipartFile file,
             LocalDate startDate,
             LocalDate endDate,
-            UUID userID
+            UUID userId
     ) throws CsvValidationException, IOException {
 
-        Statement statement = this.createStatement(startDate, endDate, userID);
+        Statement statement = this.createStatement(startDate, endDate, userId);
         try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
             String[] row;
             while ((row = reader.readNext()) != null) {
@@ -55,8 +55,8 @@ public class StatementService {
                         amount,
                         description,
                         null,
-                        statement.getStatementID(),
-                        userID,
+                        statement.getStatementId(),
+                        userId,
                         transactionDate
                 );
             }
@@ -64,22 +64,18 @@ public class StatementService {
         return statement;
     }
 
-    private Statement createStatement(LocalDate startDate, LocalDate endDate, UUID userID) {
+    private Statement createStatement(LocalDate startDate, LocalDate endDate, UUID userId) {
 
         Statement statement = new Statement();
 
-        if (userID == null) {
-            // TODO pull userID from whatever and whatnot (and remove it from method signature)
-        }
-
         statement.setStartDate(startDate);
         statement.setEndDate(endDate);
-        statement.setUserID(userID);
+        statement.setUserId(userId);
 
         statement.setIncome(BigDecimal.ZERO);
         statement.setExpenses(BigDecimal.ZERO);
         statement.setCreatedAt(Instant.now());
-        statement.setStatementID(UUID.randomUUID());
+        statement.setStatementId(UUID.randomUUID());
 
         return this.statementRepository.save(statement);
     }

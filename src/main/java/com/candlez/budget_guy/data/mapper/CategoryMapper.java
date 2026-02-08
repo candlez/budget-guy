@@ -9,8 +9,8 @@ public class CategoryMapper {
 
     public CategoryResponseDto toResponseDto(Category category) {
         CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
-        categoryResponseDto.setCategoryID(category.getCategoryID());
-        categoryResponseDto.setUserID(category.getUserID());
+        categoryResponseDto.setCategoryId(category.getCategoryId());
+        categoryResponseDto.setUserId(category.getUserId());
         categoryResponseDto.setName(category.getName());
         categoryResponseDto.setDescription(category.getDescription());
         categoryResponseDto.setCreatedAt(category.getCreatedAt());

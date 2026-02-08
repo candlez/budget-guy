@@ -16,10 +16,10 @@ public class Statement {
 
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
-    private UUID statementID;
+    private UUID statementId;
 
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
-    private UUID userID;
+    private UUID userId;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -37,20 +37,20 @@ public class Statement {
     private Instant createdAt;
 
     // getters and setters
-    public UUID getStatementID() {
-        return this.statementID;
+    public UUID getStatementId() {
+        return this.statementId;
     }
 
-    public void setStatementID(UUID statementID) {
-        this.statementID = statementID;
+    public void setStatementId(UUID statementID) {
+        this.statementId = statementID;
     }
 
-    public UUID getUserID() {
-        return this.userID;
+    public UUID getUserId() {
+        return this.userId;
     }
 
-    public void setUserID(UUID userID) {
-        this.userID = userID;
+    public void setUserId(UUID userID) {
+        this.userId = userID;
     }
 
     public LocalDate getStartDate() {

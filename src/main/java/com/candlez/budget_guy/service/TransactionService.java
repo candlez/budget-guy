@@ -23,22 +23,22 @@ public class TransactionService {
     public Transaction createTransaction(
             BigDecimal amount,
             String description,
-            UUID subcategoryID,
-            UUID statementID,
-            UUID userID,
+            UUID categoryId,
+            UUID statementId,
+            UUID userId,
             LocalDate transactionDate
     ) {
         Transaction transaction = new Transaction();
 
         transaction.setAmount(amount);
         transaction.setDescription(description);
-//        transaction.setSubcategoryID(subcategoryID);
-        transaction.setStatementID(statementID);
-        transaction.setUserID(userID);
+        transaction.setCategoryId(categoryId);
+        transaction.setStatementId(statementId);
+        transaction.setUserId(userId);
         transaction.setTransactionDate(transactionDate);
 
         transaction.setCreatedAt(Instant.now()); // right now!
-        transaction.setTransactionID(UUID.randomUUID());
+        transaction.setTransactionId(UUID.randomUUID());
 
         return this.transactionRepository.save(transaction);
     }
