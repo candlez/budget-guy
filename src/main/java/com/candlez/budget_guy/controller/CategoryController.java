@@ -8,7 +8,7 @@ import com.candlez.budget_guy.service.CategoryService;
 import com.candlez.budget_guy.util.rest.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +33,7 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getCategories() {
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ResponseEntity<?> getCategories(@AuthenticationPrincipal UUID userId) {
 
         List<Category> categories = categoryService.getCategories(userId);
 
@@ -44,8 +43,10 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> createCategory(@RequestBody CreateCategoryRequestDto categoryDto) {
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public ResponseEntity<?> createCategory(
+            @AuthenticationPrincipal UUID userId,
+            @RequestBody CreateCategoryRequestDto categoryDto
+    ) {
 
         Category category = categoryService.createCategory(categoryDto.getName(), categoryDto.getDescription(), userId);
 

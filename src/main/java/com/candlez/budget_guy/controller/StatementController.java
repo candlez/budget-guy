@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,12 +34,12 @@ public class StatementController {
     public ResponseEntity<?> uploadStatement(
             @RequestParam("statement") MultipartFile file,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @AuthenticationPrincipal UUID userId
     ) {
 
         Statement createdStatement;
         try { // need logging
-            UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             createdStatement = this.statementService.createStatementFromCSV(file, startDate, endDate, userId);
         } catch (CsvValidationException e) {
             return ApiErrorResponse.sendOne(HttpStatus.BAD_REQUEST, "The CSV you gave me could not be processed");

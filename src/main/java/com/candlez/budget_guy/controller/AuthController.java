@@ -19,7 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,9 +85,8 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<?> getMe() {
+    public ResponseEntity<?> getMe(@AuthenticationPrincipal UUID userId) {
 
-        UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<User> optionalUser = this.userService.getUserById(userId);
         if (optionalUser.isEmpty()) {
             // this should hopefully never happen
