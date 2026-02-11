@@ -1,6 +1,10 @@
 package com.candlez.budget_guy.data.dto.request;
 
-public class CreateCategoryRequestDto {
+/**
+ * this DTO contains the necessary information to create or fully replace a Category.
+ * it's used in PUT and POST endpoints
+ */
+public class InputCategoryRequestDto {
 
     private String name;
     private String description;

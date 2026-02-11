@@ -28,6 +28,10 @@ public class ApiResponse<T> {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new SingleItem<>(id, item)));
     }
 
+    public static ResponseEntity<ApiResponse<DeletedItem>> sendDeleted() {
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new DeletedItem()));
+    }
+
     // getters and setters
     public String getStatus() {
         return this.status;
