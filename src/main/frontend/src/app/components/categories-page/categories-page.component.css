@@ -1,0 +1,17 @@
+#categories-page-wrapper {
+  min-height: calc(100vh - 60px);
+  background-color: #D3D3D3;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+#categories-table {
+  z-index: 1;
+}
+
+#categories-spinner {
+  border: black 1px solid;
+  width: 600px;
+  height: 600px;
+}
