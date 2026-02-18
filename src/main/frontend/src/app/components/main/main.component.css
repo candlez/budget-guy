@@ -1,0 +1,22 @@
+mat-sidenav-container {
+  min-height: calc(100vh - 60px);
+}
+
+mat-sidenav {
+
+  width: 250px;
+}
+
+.sidenav-item-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidenav-link {
+  cursor: pointer;
+}
+
+.sidenav-link:hover {
+  opacity: 80%;
+}

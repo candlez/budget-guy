@@ -1,0 +1,19 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <div class="sidenav-item-holder">
+      <h2>DASHBOARD</h2>
+    </div>
+    <div class="sidenav-item-holder">
+      <h2>STATEMENTS</h2>
+    </div>
+    <div class="sidenav-item-holder">
+      <h2>TRANSACTIONS</h2>
+    </div>
+    <div class="sidenav-item-holder">
+      <h2 class="sidenav-link" routerLink="/categories">CATEGORIES</h2>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>
