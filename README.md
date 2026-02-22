@@ -20,4 +20,3 @@ Alternatively, you can do the following:
 5. ```SCHEMA_NAME```
 6. ```SPRING_PROFILES_ACTIVE``` ('local' or 'prod')
 7. ```JWT_SECRET``` (must be at least 32 bytes)
-
