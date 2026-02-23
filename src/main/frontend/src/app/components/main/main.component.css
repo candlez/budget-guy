@@ -3,20 +3,31 @@ mat-sidenav-container {
 }
 
 mat-sidenav {
-
-  width: 250px;
+  width: 200px;
+  background-color: #36454F;
+  border-radius: 0 !important;
 }
 
 .sidenav-item-holder {
   display: flex;
-  justify-content: center;
   align-items: center;
+  padding-left: 25px;
 }
 
 .sidenav-link {
+  color: #FEC804;
   cursor: pointer;
 }
 
 .sidenav-link:hover {
   opacity: 80%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
 }
