@@ -1,13 +1,15 @@
 #categories-page-wrapper {
   min-height: calc(100vh - 60px);
-  background-color: #D3D3D3;
+  background-color: #FDFCFA;
   z-index: 0;
   box-sizing: border-box;
   padding: 20px;
 }
 
 table {
+  border: solid black 1px;
   border-radius: 10px;
+  background-color: #EFF4DB;
 }
 
 table tr:first-child th:first-child {
@@ -30,4 +32,28 @@ table tr:last-child td:last-child {
   border: black 1px solid;
   width: 600px;
   height: 600px;
+}
+
+#button-bar-holder {
+  border: solid black 1px;
+  border-radius: 10px;
+  background-color: #EFF4DB;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+#new-button {
+  margin: 5px 5px 5px auto;
+  border-radius: 10px;
+  color: #FEC804;
+  background-color: #36454F;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
 }
