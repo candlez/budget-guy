@@ -2,7 +2,7 @@
   @if (categories().length !== 0) {
 <!--  @if (false) {-->
     <div id="button-bar-holder">
-      <button matButton="filled" id="new-button"><a routerLink="/categories/create">New</a></button>
+      <a routerLink="/categories/create" id="new-button-anchor"><button matButton="filled" id="new-button">New</button></a>
     </div>
 
     <table mat-table [dataSource]="categories()" id="categories-table">

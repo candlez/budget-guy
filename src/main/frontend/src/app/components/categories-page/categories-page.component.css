@@ -43,10 +43,13 @@ table tr:last-child td:last-child {
 }
 
 #new-button {
-  margin: 5px 5px 5px auto;
   border-radius: 10px;
   color: #FEC804;
   background-color: #36454F;
+}
+
+#new-button-anchor {
+  margin: 5px 5px 5px auto;
 }
 
 a {
