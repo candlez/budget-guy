@@ -1,6 +1,6 @@
 # Budget Guy
 
-A web application for tracking spending.
+A web application made with Angular and SpringBoot for tracking spending.
 
 ## Running Locally
 
