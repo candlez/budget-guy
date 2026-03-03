@@ -8,6 +8,7 @@ import { ListItemDto } from '../model/dto/rest/ListItem.dto';
 import { SingleItemDto } from '../model/dto/rest/SingleItem.dto';
 import { mapSingleItem } from '../model/mapper/SingleItem.mapper';
 import { CategoryRequestDto } from '../model/dto/CategoryRequest.dto';
+import { DeletedItemDto } from '../model/dto/rest/DeletedItem.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +34,12 @@ export class CategoryService {
     ).pipe(map(
       res => mapSingleItem<CategoryResponseDto, Category>(res, Category.fromDto)
     ));
+  }
+
+  public deleteCategory(categoryId: string): Observable<boolean> {
+    return this.http.delete<ApiResponseDto<DeletedItemDto>>(
+      `api/category/${categoryId}`,
+      {withCredentials: true}
+    ).pipe(map(() => true));
   }
 }

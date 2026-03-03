@@ -1,6 +1,5 @@
 <div id="categories-page-wrapper">
   @if (categories().length !== 0) {
-<!--  @if (false) {-->
     <div id="button-bar-holder">
       <a routerLink="/categories/create" id="new-button-anchor"><button matButton="filled" id="new-button">New</button></a>
     </div>
@@ -19,6 +18,15 @@
       <ng-container matColumnDef="createdAt">
         <th mat-header-cell *matHeaderCellDef>Created At</th>
         <td mat-cell *matCellDef="let category">{{category.createdAt}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="optionsButton">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let category">
+          <button matIconButton (click)="openDialog(category)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="columns"></tr>
