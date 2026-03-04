@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteCategoriesComponent } from './delete-categories/delete-categories.component';
+import { BehaviorSubject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-categories-page',
@@ -19,11 +20,12 @@ import { DeleteCategoriesComponent } from './delete-categories/delete-categories
 })
 export class CategoriesPageComponent {
   columns: string[] = ["name", "description", "createdAt", "optionsButton"];
+  private readonly refresher: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   categories: Signal<Category[]>;
 
   constructor(private categoryService: CategoryService, private dialog: MatDialog) {
     this.categories = toSignal(
-      this.categoryService.getCategories(),
+      this.refresher.pipe(switchMap(() => this.categoryService.getCategories())),
       { initialValue: [] }
     );
   }
@@ -35,7 +37,7 @@ export class CategoriesPageComponent {
     );
 
     dialogRef.afterClosed().subscribe((result: boolean): void => {
-      console.log(result);
+      this.refresher.next();
     });
   }
 }
