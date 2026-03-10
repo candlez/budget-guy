@@ -6,6 +6,7 @@ import com.candlez.budget_guy.data.entity.Category;
 import com.candlez.budget_guy.data.mapper.CategoryMapper;
 import com.candlez.budget_guy.service.CategoryService;
 import com.candlez.budget_guy.util.rest.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,7 +49,7 @@ public class CategoryController {
     @PostMapping("")
     public ResponseEntity<?> createCategory(
             @AuthenticationPrincipal UUID userId,
-            @RequestBody InputCategoryRequestDto categoryDto
+            @RequestBody @Valid InputCategoryRequestDto categoryDto
     ) {
 
         Category category = categoryService.createCategory(categoryDto.getName(), categoryDto.getDescription(), userId);
