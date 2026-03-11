@@ -4,6 +4,7 @@ import com.candlez.budget_guy.annotation.SupportsHTML;
 import com.candlez.budget_guy.exception.NotFoundException;
 import com.candlez.budget_guy.exception.UnauthorizedException;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
+import com.opencsv.exceptions.CsvValidationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -31,7 +32,7 @@ public class ExceptionController {
         // currently looking into a way to correct this behavior.
 
         LOGGER.error("Encountered an unhandled Exception.", e);
-        return ApiErrorResponse.sendOne(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong unexpectedly");
+        return ApiErrorResponse.sendOne(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong unexpectedly.");
     }
 
     @SupportsHTML(value = HttpStatus.NOT_FOUND)
@@ -66,7 +67,14 @@ public class ExceptionController {
     @ExceptionHandler(value = UnauthorizedException.class)
     public ResponseEntity<?> handleUnauthorizedException(HttpServletRequest req, UnauthorizedException e) {
 
-        String errMsg = Optional.ofNullable(e.getMessage()).orElse("You are not authorized to view this resource");
+        String errMsg = Optional.ofNullable(e.getMessage()).orElse("You are not authorized to view this resource.");
         return ApiErrorResponse.sendOne(HttpStatus.UNAUTHORIZED, errMsg);
+    }
+
+    @ExceptionHandler(value = CsvValidationException.class)
+    public ResponseEntity<?> handleCsvValidationException(HttpServletRequest req, CsvValidationException e) {
+
+        String errMsg = Optional.ofNullable(e.getMessage()).orElse("Invalid CSV file provided.");
+        return ApiErrorResponse.sendOne(HttpStatus.BAD_REQUEST, errMsg);
     }
 }
