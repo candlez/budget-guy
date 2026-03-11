@@ -1,10 +1,17 @@
 package com.candlez.budget_guy.data.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class SignupRequestDto {
 
+    @Email
     private String email;
+    @NotBlank
     private String password;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
 
     // getters and setters

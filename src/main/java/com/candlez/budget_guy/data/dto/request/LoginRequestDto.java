@@ -1,8 +1,12 @@
 package com.candlez.budget_guy.data.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequestDto {
 
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
 
     // getters and setters

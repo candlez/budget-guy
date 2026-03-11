@@ -12,6 +12,7 @@ import com.candlez.budget_guy.service.UserService;
 import com.candlez.budget_guy.util.rest.ApiErrorResponse;
 import com.candlez.budget_guy.util.rest.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequestDto signupRequestDto) {
+    public ResponseEntity<?> signup(@RequestBody @Valid SignupRequestDto signupRequestDto) {
 
         UserResponseDto userResponseDto;
         try {
@@ -62,7 +63,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDto loginRequestDto, HttpServletResponse response) {
 
         UserResponseDto userResponseDto;
         try {

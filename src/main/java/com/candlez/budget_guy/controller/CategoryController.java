@@ -73,7 +73,7 @@ public class CategoryController {
     public ResponseEntity<?> replaceCategory(
             @PathVariable UUID categoryId,
             @AuthenticationPrincipal UUID userId,
-            @RequestBody InputCategoryRequestDto categoryDto
+            @RequestBody @Valid InputCategoryRequestDto categoryDto
     ) {
 
         Category category = this.categoryService.updateCategory(
