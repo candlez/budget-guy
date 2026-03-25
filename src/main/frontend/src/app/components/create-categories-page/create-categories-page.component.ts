@@ -7,6 +7,7 @@ import { CategoryService } from '../../services/category.service';
 import { CategoryRequestDto } from '../../model/dto/CategoryRequest.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Category } from '../../model/domain/Category';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-categories-page',
@@ -45,8 +46,9 @@ export class CreateCategoriesPageComponent {
       next: (value: Category): void => {
         this.successSnackBar();
       },
-      error: (err: Error): void => {
-        this.errorSnackBar(err.message);
+      error: (err: HttpErrorResponse): void => {
+        console.log(err)
+        this.errorSnackBar(err.error.error.message);
       }
     });
   }
@@ -56,6 +58,6 @@ export class CreateCategoriesPageComponent {
   }
 
   errorSnackBar(message: string): void {
-    this.snackBar.open(message, "dismiss",  { duration: 1500, horizontalPosition: "end" });
+    this.snackBar.open(message, "dismiss",  { horizontalPosition: "end" });
   }
 }
