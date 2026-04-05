@@ -4,6 +4,13 @@
   z-index: 0;
   box-sizing: border-box;
   padding: 20px;
+
+  animation: fadeIn 200ms ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 table {

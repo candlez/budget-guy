@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatButton } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
@@ -29,7 +29,8 @@ export class CreateCategoriesPageComponent {
   constructor(
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {
     this.form = this.formBuilder.group({
       name: [''],
@@ -45,6 +46,7 @@ export class CreateCategoriesPageComponent {
     this.categoryService.createCategory(dto).subscribe({
       next: (value: Category): void => {
         this.successSnackBar();
+        this.router.navigate(['/categories']);
       },
       error: (err: HttpErrorResponse): void => {
         console.log(err)
