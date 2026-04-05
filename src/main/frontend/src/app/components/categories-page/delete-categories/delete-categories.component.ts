@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
-  MatDialogClose,
+  MatDialogClose, MatDialogContent,
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
@@ -15,7 +15,8 @@ import { CategoryService } from '../../../services/category.service';
   imports: [
     MatDialogTitle,
     MatDialogActions,
-    MatButton
+    MatButton,
+    MatDialogContent
   ],
   templateUrl: './delete-categories.component.html',
   styleUrl: './delete-categories.component.css',

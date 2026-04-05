@@ -1,4 +1,9 @@
-<h2 mat-dialog-title>Delete {{ data.name }}?</h2>
+<h2 mat-dialog-title>Are you sure?</h2>
+<mat-dialog-content>
+  <p>You will not be able to undo this action.</p>
+  <p>Name: {{ data.name }}</p>
+  <p>Description: {{ data.description }}</p>
+</mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="close()">Never mind</button>
   <button mat-button (click)="submitDelete()">Delete</button>
