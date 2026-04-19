@@ -1,11 +1,13 @@
 #categories-page-wrapper {
-  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
   background-color: #FDFCFA;
   z-index: 0;
   box-sizing: border-box;
   padding: 20px;
 
-  animation: fadeIn 200ms ease-in;
+  overflow-y: auto;
+
+  animation: fadeIn 250ms ease-in;
 }
 
 @keyframes fadeIn {
