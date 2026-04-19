@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
-  MatDialogClose, MatDialogContent,
+  MatDialogContent,
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';

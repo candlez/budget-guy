@@ -68,6 +68,14 @@ a:visited {
   color: inherit;
 }
 
+.mat-column-name {
+  width: 200px;
+}
+
+.mat-column-description {
+  width: 400px;
+}
+
 .mat-column-optionsButton {
   padding-right: 0 !important;
   width: 66px;
