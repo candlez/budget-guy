@@ -60,6 +60,6 @@ export class CreateCategoriesPageComponent {
   }
 
   errorSnackBar(message: string): void {
-    this.snackBar.open(message, "dismiss",  { horizontalPosition: "end" });
+    this.snackBar.open(message, "dismiss",  { horizontalPosition: "end", panelClass: ['error-snackbar'] });
   }
 }

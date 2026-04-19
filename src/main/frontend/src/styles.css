@@ -30,3 +30,11 @@ body {
   font-style: italic;
 }
 
+.error-snackbar .mdc-snackbar__surface {
+  background-color: #D2122E !important;
+  color: #FDFCFA !important;
+}
+
+.error-snackbar .mat-mdc-button {
+  color: #FDFCFA !important;
+}
