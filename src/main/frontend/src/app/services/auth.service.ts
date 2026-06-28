@@ -5,7 +5,7 @@ import { User } from '../model/domain/User';
 import { ApiResponseDto } from '../model/dto/rest/ApiResponse.dto';
 import { SingleItemDto } from '../model/dto/rest/SingleItem.dto';
 import { UserResponseDto } from '../model/dto/UserResponse.dto';
-import {mapSingleItem} from '../model/mapper/SingleItem.mapper';
+import { mapSingleItem } from '../model/mapper/SingleItem.mapper';
 
 @Injectable({
   providedIn: 'root',

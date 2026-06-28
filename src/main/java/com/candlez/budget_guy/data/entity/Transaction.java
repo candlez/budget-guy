@@ -16,7 +16,7 @@ public class Transaction {
 
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
-    private UUID transactionID;
+    private UUID transactionId;
 
     @Column(name = "amount")
     private BigDecimal amount;
@@ -24,14 +24,14 @@ public class Transaction {
     @Column(name = "description")
     private String description;
 
-//    @Column(name = "subcategory_id")
-//    private UUID subcategoryID;
+    @Column(name = "category_id")
+    private UUID categoryId;
 
     @Column(name = "statement_id")
-    private UUID statementID;
+    private UUID statementId;
 
     @Column(name = "user_id")
-    private UUID userID;
+    private UUID userId;
 
     @Column(name = "transaction_date")
     private LocalDate transactionDate;
@@ -40,12 +40,12 @@ public class Transaction {
     private Instant createdAt;
 
     // getters and setters
-    public UUID getTransactionID() {
-        return this.transactionID;
+    public UUID getTransactionId() {
+        return this.transactionId;
     }
 
-    public void setTransactionID(UUID transactionID) {
-        this.transactionID = transactionID;
+    public void setTransactionId(UUID transactionID) {
+        this.transactionId = transactionID;
     }
 
     public BigDecimal getAmount() {
@@ -64,28 +64,28 @@ public class Transaction {
         this.description = description;
     }
 
-//    public UUID getSubcategoryID() {
-//        return this.subcategoryID;
-//    }
-//
-//    public void setSubcategoryID(UUID subcategoryID) {
-//        this.subcategoryID = subcategoryID;
-//    }
-
-    public UUID getStatementID() {
-        return this.statementID;
+    public UUID getCategoryId() {
+        return this.categoryId;
     }
 
-    public void setStatementID(UUID statementID) {
-        this.statementID = statementID;
+    public void setCategoryId(UUID categoryID) {
+        this.categoryId = categoryID;
     }
 
-    public UUID getUserID() {
-        return this.userID;
+    public UUID getStatementId() {
+        return this.statementId;
     }
 
-    public void setUserID(UUID userID) {
-        this.userID = userID;
+    public void setStatementId(UUID statementID) {
+        this.statementId = statementID;
+    }
+
+    public UUID getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(UUID userID) {
+        this.userId = userID;
     }
 
     public LocalDate getTransactionDate() {

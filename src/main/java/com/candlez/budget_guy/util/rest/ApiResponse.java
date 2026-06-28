@@ -3,6 +3,7 @@ package com.candlez.budget_guy.util.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ApiResponse<T> {
@@ -19,8 +20,16 @@ public class ApiResponse<T> {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new SingleItem<>(id, item)));
     }
 
+    public static <T> ResponseEntity<ApiResponse<ListItem<T>>> sendList(List<T> items) {
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new ListItem<>(items)));
+    }
+
     public static <T> ResponseEntity<ApiResponse<SingleItem<T>>> sendCreated(UUID id, T item) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(new SingleItem<>(id, item)));
+    }
+
+    public static ResponseEntity<ApiResponse<DeletedItem>> sendDeleted() {
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse<>(new DeletedItem()));
     }
 
     // getters and setters

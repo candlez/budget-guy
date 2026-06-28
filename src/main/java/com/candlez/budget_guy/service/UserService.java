@@ -2,18 +2,28 @@ package com.candlez.budget_guy.service;
 
 import com.candlez.budget_guy.data.entity.User;
 import com.candlez.budget_guy.data.repository.UserRepository;
+import com.candlez.budget_guy.util.provider.DateProvider;
+import com.candlez.budget_guy.util.provider.UUIDProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class UserService {
 
+    private final UserRepository userRepository;
+
+    private final UUIDProvider uuidProvider;
+    private final DateProvider dateProvider;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository, UUIDProvider uuidProvider, DateProvider dateProvider) {
+        this.userRepository = userRepository;
+        this.uuidProvider = uuidProvider;
+        this.dateProvider = dateProvider;
+    }
 
     public User createUser(String email, String hashedPassword, String firstName, String lastName) {
 
@@ -23,8 +33,8 @@ public class UserService {
         user.setFirstName(firstName);
         user.setLastName(lastName);
 
-        user.setCreatedAt(Instant.now());
-        user.setUserId(UUID.randomUUID());
+        user.setCreatedAt(dateProvider.getCurrentTimestamp());
+        user.setUserId(uuidProvider.generateUUID());
 
         return userRepository.save(user);
     }

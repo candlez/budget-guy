@@ -14,10 +14,10 @@ public class Category {
 
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
-    private UUID categoryID;
+    private UUID categoryId;
 
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
-    private UUID userID;
+    private UUID userId;
 
     @Column(name = "name")
     private String name;
@@ -29,20 +29,20 @@ public class Category {
     private Instant createdAt;
 
     // getters and setters
-    public UUID getCategoryID() {
-        return this.categoryID;
+    public UUID getCategoryId() {
+        return this.categoryId;
     }
 
-    public void setCategoryID(UUID statementID) {
-        this.categoryID = statementID;
+    public void setCategoryId(UUID statementID) {
+        this.categoryId = statementID;
     }
 
-    public UUID getUserID() {
-        return this.userID;
+    public UUID getUserId() {
+        return this.userId;
     }
 
-    public void setUserID(UUID userID) {
-        this.userID = userID;
+    public void setUserId(UUID userID) {
+        this.userId = userID;
     }
 
     public String getName() {

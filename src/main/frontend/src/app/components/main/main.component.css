@@ -1,0 +1,33 @@
+mat-sidenav-container {
+  min-height: calc(100vh - 60px);
+}
+
+mat-sidenav {
+  width: 200px;
+  background-color: #36454F;
+  border-radius: 0 !important;
+}
+
+.sidenav-item-holder {
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+}
+
+.sidenav-link {
+  color: #FEC804;
+  cursor: pointer;
+}
+
+.sidenav-link:hover {
+  opacity: 80%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}

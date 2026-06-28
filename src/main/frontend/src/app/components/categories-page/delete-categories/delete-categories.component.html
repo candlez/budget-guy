@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Are you sure?</h2>
+<mat-dialog-content>
+  <p>You will not be able to undo this action.</p>
+  <p><strong>Name:</strong> {{ data.name }}</p>
+  <p><strong>Description:</strong> {{ data.description }}</p>
+  <p><strong>Date Created:</strong> {{ data.createdAt.toLocaleString('en-US', {
+    dateStyle: 'short',
+    timeStyle: 'short'
+  }) }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="close()">Never mind</button>
+  <button mat-button (click)="submitDelete()">Delete</button>
+</mat-dialog-actions>

@@ -1,0 +1,26 @@
+#nav-bar-wrapper {
+  width: 100%;
+  height: 60px;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 5px;
+  overflow: hidden;
+  background-color: #28282B;
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  box-sizing: border-box;
+}
+
+#title-text {
+  font-size: 2.5em;
+  font-weight: 1000;
+  color: #FEC804;
+  margin: auto auto auto 15px;
+}
+
+#logo {
+  height: 50px;
+  width: 50px;
+  margin: auto 15px auto auto;
+}

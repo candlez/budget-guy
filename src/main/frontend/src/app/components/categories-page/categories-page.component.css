@@ -1,0 +1,84 @@
+#categories-page-wrapper {
+  height: calc(100vh - 60px);
+  background-color: #FDFCFA;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: 20px;
+
+  overflow-y: auto;
+
+  animation: fadeIn 250ms ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+table {
+  border: solid black 1px;
+  border-radius: 10px;
+  background-color: #EFF4DB;
+}
+
+table tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+#categories-spinner {
+  border: black 1px solid;
+  width: 600px;
+  height: 600px;
+}
+
+#button-bar-holder {
+  border: solid black 1px;
+  border-radius: 10px;
+  background-color: #EFF4DB;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+#new-button {
+  border-radius: 10px;
+  color: #FEC804;
+  background-color: #36454F;
+}
+
+#new-button-anchor {
+  margin: 5px 5px 5px auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+.mat-column-name {
+  width: 200px;
+}
+
+.mat-column-description {
+  width: 400px;
+}
+
+.mat-column-optionsButton {
+  padding-right: 0 !important;
+  width: 66px;
+}
